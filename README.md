@@ -20,8 +20,8 @@ npm start
 start.bat
 
 # Access AQVision
-Application: http://localhost:9000
-API: http://localhost:9000/api
+Application: http://localhost:3000
+API: http://localhost:3000/api
 Demo HTML: Open demo.html in browser
 ```
 
@@ -55,7 +55,7 @@ Demo HTML: Open demo.html in browser
 npm install
 npm run build
 npm start
-# Access: http://localhost:8080
+# Access: http://localhost:3000
 ```
 
 ### Option 2: Standalone HTML Demo
