@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQVision - Air Quality Monitoring Demo</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        const mockZones = [
+            { id: 'anand_vihar', name: 'Anand Vihar', lat: 28.6503, lng: 77.3159, aqi: 287, pm25: 320, no2: 85, o3: 12 },
+            { id: 'rk_puram', name: 'RK Puram', lat: 28.5535, lng: 77.1784, aqi: 210, pm25: 220, no2: 60, o3: 10 },
+            { id: 'dwarka', name: 'Dwarka', lat: 28.5921, lng: 77.0460, aqi: 195, pm25: 200, no2: 55, o3: 15 }
+        ];
+        
+        const getAQIColor = (aqi) => {
+            if (aqi <= 50) return '#00E400';
+            if (aqi <= 100) return '#FFFF00';
+            if (aqi <= 150) return '#FF7E00';
+            if (aqi <= 200) return '#FF0000';
+            if (aqi <= 300) return '#8F3F97';
+            return '#7E0023';
+        };
+        
+        const getAQILabel = (aqi) => {
+            if (aqi <= 50) return 'Good';
+            if (aqi <= 100) return 'Moderate';
+            if (aqi <= 150) return 'Unhealthy for Sensitive';
+            if (aqi <= 200) return 'Unhealthy';
+            if (aqi <= 300) return 'Very Unhealthy';
+            return 'Hazardous';
+        };
+        
+        const Navbar = () => (
+            <nav className="bg-white shadow-lg">
+                <div className="max-w-7xl mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                                <span className="text-white font-bold text-sm">AQ</span>
+                            </div>
+                            <span className="text-xl font-bold text-gray-900">AQVision</span>
+                        </div>
+                        <div className="flex space-x-6">
+                            <a href="#" className="text-gray-700 hover:text-blue-600">Home</a>
+                            <a href="#" className="text-gray-700 hover:text-blue-600">Real-Time</a>
+                            <a href="#" className="text-gray-700 hover:text-blue-600">Forecast</a>
+                            <a href="#" className="text-gray-700 hover:text-blue-600">Education</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        );
+        
+        const AQICard = ({ zone }) => (
+            <div className="bg-white rounded-lg shadow p-6 mb-4">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900">{zone.name}</h3>
+                        <p className="text-sm text-gray-600">Delhi NCR</p>
+                    </div>
+                    <div className="text-center">
+                        <div 
+                            className="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold mb-2"
+                            style={{ backgroundColor: getAQIColor(zone.aqi) }}
+                        >
+                            {zone.aqi}
+                        </div>
+                        <p className="text-xs text-gray-600">{getAQILabel(zone.aqi)}</p>
+                    </div>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <span className="text-gray-600">PM2.5:</span>
+                        <span className="font-medium ml-1">{zone.pm25} μg/m³</span>
+                    </div>
+                    <div>
+                        <span className="text-gray-600">NO₂:</span>
+                        <span className="font-medium ml-1">{zone.no2} ppb</span>
+                    </div>
+                    <div>
+                        <span className="text-gray-600">O₃:</span>
+                        <span className="font-medium ml-1">{zone.o3} ppb</span>
+                    </div>
+                </div>
+            </div>
+        );
+        
+        const MapComponent = () => {
+            useEffect(() => {
+                const map = L.map('map').setView([28.6139, 77.2090], 11);
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+                
+                mockZones.forEach(zone => {
+                    const circle = L.circle([zone.lat, zone.lng], {
+                        color: '#fff',
+                        fillColor: getAQIColor(zone.aqi),
+                        fillOpacity: 0.7,
+                        radius: zone.aqi * 10
+                    }).addTo(map);
+                    
+                    circle.bindPopup(`
+                        <div class="p-2">
+                            <h3 class="font-bold">${zone.name}</h3>
+                            <p>AQI: <span style="color: ${getAQIColor(zone.aqi)}">${zone.aqi}</span></p>
+                            <p>PM2.5: ${zone.pm25} μg/m³</p>
+                            <p>Status: ${getAQILabel(zone.aqi)}</p>
+                        </div>
+                    `);
+                });
+                
+                return () => map.remove();
+            }, []);
+            
+            return <div id="map" className="h-96 w-full rounded-lg"></div>;
+        };
+        
+        const App = () => {
+            const [selectedTab, setSelectedTab] = useState('dashboard');
+            
+            return (
+                <div className="min-h-screen bg-gray-50">
+                    <Navbar />
+                    
+                    <div className="max-w-7xl mx-auto px-4 py-8">
+                        <div className="mb-8">
+                            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                                Air Quality Dashboard
+                            </h1>
+                            <p className="text-gray-600">
+                                Real-time air quality monitoring for Delhi NCR
+                            </p>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                                    Live Air Quality Map
+                                </h2>
+                                <MapComponent />
+                                
+                                <div className="mt-4 bg-white rounded-lg shadow p-4">
+                                    <h3 className="font-semibold mb-2">AQI Legend</h3>
+                                    <div className="grid grid-cols-2 gap-2 text-xs">
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-4 h-4 rounded-full" style={{backgroundColor: '#00E400'}}></div>
+                                            <span>Good (0-50)</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-4 h-4 rounded-full" style={{backgroundColor: '#FFFF00'}}></div>
+                                            <span>Moderate (51-100)</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-4 h-4 rounded-full" style={{backgroundColor: '#FF7E00'}}></div>
+                                            <span>Unhealthy for Sensitive (101-150)</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-4 h-4 rounded-full" style={{backgroundColor: '#FF0000'}}></div>
+                                            <span>Unhealthy (151-200)</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-4 h-4 rounded-full" style={{backgroundColor: '#8F3F97'}}></div>
+                                            <span>Very Unhealthy (201-300)</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-4 h-4 rounded-full" style={{backgroundColor: '#7E0023'}}></div>
+                                            <span>Hazardous (301+)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                                    Zone Details
+                                </h2>
+                                {mockZones.map(zone => (
+                                    <AQICard key={zone.id} zone={zone} />
+                                ))}
+                                
+                                <div className="bg-blue-50 rounded-lg p-4 mt-4">
+                                    <h3 className="font-semibold text-blue-900 mb-2">Health Advisory</h3>
+                                    <p className="text-blue-800 text-sm">
+                                        Current air quality is unhealthy. Sensitive individuals should limit outdoor activities 
+                                        and consider wearing masks when going outside.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

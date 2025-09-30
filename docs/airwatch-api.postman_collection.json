@@ -1,0 +1,425 @@
+{
+  "info": {
+    "name": "AirWatch API",
+    "description": "Air Quality Monitoring API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"mobile\": \"+91 9876543210\",\n  \"language\": \"en\",\n  \"ageGroup\": \"adult\",\n  \"healthConditions\": \"None\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@airwatch.test\",\n  \"password\": \"Demo@1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('accessToken', response.accessToken);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/refresh",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "refresh"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cities",
+      "item": [
+        {
+          "name": "Get All Cities",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cities"]
+            }
+          }
+        },
+        {
+          "name": "Get City Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cities/delhi",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cities", "delhi"]
+            }
+          }
+        },
+        {
+          "name": "Get City Zones",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/cities/delhi/zones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "cities", "delhi", "zones"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Zones",
+      "item": [
+        {
+          "name": "Get Zone Readings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/anand_vihar/readings?limit=24",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "anand_vihar", "readings"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "24"
+                },
+                {
+                  "key": "from",
+                  "value": "2024-01-01T00:00:00Z",
+                  "disabled": true
+                },
+                {
+                  "key": "to",
+                  "value": "2024-01-02T00:00:00Z",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Zone Forecast",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/anand_vihar/forecast?horizon=24",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "anand_vihar", "forecast"],
+              "query": [
+                {
+                  "key": "horizon",
+                  "value": "24"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Zone Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/anand_vihar",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "anand_vihar"]
+            }
+          }
+        },
+        {
+          "name": "Get Historical Data",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/historical?cityId=delhi&from=2024-01-01&to=2024-01-07",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "historical"],
+              "query": [
+                {
+                  "key": "cityId",
+                  "value": "delhi"
+                },
+                {
+                  "key": "from",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2024-01-07"
+                },
+                {
+                  "key": "pollutant",
+                  "value": "aqi",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/user/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"mobile\": \"+91 9876543210\",\n  \"ageGroup\": \"adult\",\n  \"healthConditions\": \"Asthma\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Preferences",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notifications\": {\n    \"push\": true,\n    \"email\": true,\n    \"sms\": false,\n    \"whatsapp\": false\n  },\n  \"thresholds\": {\n    \"pm25\": 35,\n    \"no2\": 40,\n    \"o3\": 70,\n    \"aqi\": 100\n  },\n  \"quietHours\": {\n    \"enabled\": true,\n    \"start\": \"22:00\",\n    \"end\": \"08:00\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/preferences",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "preferences"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Upload Readings",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/upload-readings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "upload-readings"]
+            }
+          }
+        },
+        {
+          "name": "Retrain Model",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"lightgbm\",\n  \"params\": {\n    \"n_estimators\": 200,\n    \"learning_rate\": 0.05,\n    \"max_depth\": 8\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/retrain-model",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "retrain-model"]
+            }
+          }
+        },
+        {
+          "name": "Get Model Metrics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/model-metrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "model-metrics"]
+            }
+          }
+        },
+        {
+          "name": "Get Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/users?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Alerts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/alerts?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "alerts"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "severity",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}

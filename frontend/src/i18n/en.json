@@ -1,0 +1,129 @@
+{
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "realTime": "Real-Time",
+    "forecast": "Forecast",
+    "alerts": "Alerts",
+    "historical": "Historical",
+    "education": "Education",
+    "settings": "Settings",
+    "admin": "Admin",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout"
+  },
+  "auth": {
+    "signInToAccount": "Sign in to your account",
+    "createAccount": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Full Name",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "namePlaceholder": "Enter your full name",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "forgotPassword": "Forgot Password?"
+  },
+  "dashboard": {
+    "greeting": "Good {{timeOfDay}}, {{name}}",
+    "lastUpdated": "Last updated: {{time}}",
+    "currentAQI": "Current AQI",
+    "quickActions": "Quick Actions",
+    "viewMap": "View Map",
+    "checkForecast": "Check Forecast",
+    "manageAlerts": "Manage Alerts",
+    "viewHistory": "View History"
+  },
+  "map": {
+    "legend": "AQI Legend",
+    "good": "Good (0-50)",
+    "moderate": "Moderate (51-100)",
+    "unhealthySensitive": "Unhealthy for Sensitive (101-150)",
+    "unhealthy": "Unhealthy (151-200)",
+    "veryUnhealthy": "Very Unhealthy (201-300)",
+    "hazardous": "Hazardous (301+)",
+    "population": "Population",
+    "lastUpdated": "Last Updated",
+    "healthAdvice": "Health Advice",
+    "viewDetails": "View Details",
+    "timeSlider": "Time Slider",
+    "play": "Play",
+    "pause": "Pause"
+  },
+  "forecast": {
+    "title": "Air Quality Forecast",
+    "next24Hours": "Next 24 Hours",
+    "next48Hours": "Next 48 Hours",
+    "downloadCSV": "Download CSV",
+    "downloadExcel": "Download Excel",
+    "howItWorks": "How Forecasting Works",
+    "forecastExplanation": "Our AI models analyze historical air quality data, weather patterns, and emission sources to predict future air quality levels. The forecast is updated every hour using machine learning algorithms."
+  },
+  "alerts": {
+    "title": "Health Alerts",
+    "createAlert": "Create Alert",
+    "alertHistory": "Alert History",
+    "thresholds": "Alert Thresholds",
+    "channels": "Notification Channels",
+    "push": "Push Notifications",
+    "email": "Email",
+    "sms": "SMS",
+    "whatsapp": "WhatsApp",
+    "quietHours": "Quiet Hours"
+  },
+  "health": {
+    "good": {
+      "message": "Air quality is good. Perfect for outdoor activities.",
+      "tips": ["Enjoy outdoor activities", "Open windows for fresh air"]
+    },
+    "moderate": {
+      "message": "Air quality is acceptable for most people.",
+      "tips": ["Sensitive individuals should limit prolonged outdoor exertion"]
+    },
+    "unhealthySensitive": {
+      "message": "Sensitive groups may experience health effects.",
+      "tips": ["Limit outdoor activities if sensitive", "Consider wearing a mask outdoors"]
+    },
+    "unhealthy": {
+      "message": "Everyone may experience health effects.",
+      "tips": ["Avoid outdoor activities", "Keep windows closed", "Use air purifiers indoors"]
+    },
+    "veryUnhealthy": {
+      "message": "Health alert: everyone may experience serious health effects.",
+      "tips": ["Stay indoors", "Avoid all outdoor activities", "Use N95 masks if going outside"]
+    },
+    "hazardous": {
+      "message": "Emergency conditions: entire population affected.",
+      "tips": ["Stay indoors at all times", "Seal windows and doors", "Seek medical attention if experiencing symptoms"]
+    }
+  },
+  "cities": {
+    "delhi": "Delhi NCR",
+    "mumbai": "Mumbai",
+    "kolkata": "Kolkata",
+    "chennai": "Chennai",
+    "bengaluru": "Bengaluru",
+    "ahmedabad": "Ahmedabad"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  }
+}

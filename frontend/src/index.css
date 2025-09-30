@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-900;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .ambient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page-dashboard { background: linear-gradient(135deg, #939dfb 0%, #57bef5 100%); }
+  .page-realtime { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+  .page-forecast { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+  .page-education { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+  .page-settings { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+  .page-login { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+  
+  .ambient-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    animation: float 20s ease-in-out infinite;
+  }
+  
+  .cloud {
+    @apply absolute bg-white bg-opacity-20 rounded-full;
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .cloud:nth-child(1) {
+    @apply w-20 h-12 top-10 left-10;
+    animation-delay: -2s;
+  }
+  
+  .cloud:nth-child(2) {
+    @apply w-16 h-8 top-20 right-20;
+    animation-delay: -4s;
+  }
+  
+  .cloud:nth-child(3) {
+    @apply w-24 h-14 bottom-20 left-1/4;
+    animation-delay: -6s;
+  }
+}
+
+@layer utilities {
+  .bg-opacity-20 {
+    background-opacity: 0.2;
+  }
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.aqi-marker {
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* AQI Danger Level Colors */
+.aqi-good { background-color: #00e400; }
+.aqi-moderate { background-color: #ffff00; }
+.aqi-unhealthy-sensitive { background-color: #ff7e00; }
+.aqi-unhealthy { background-color: #ff0000; }
+.aqi-very-unhealthy { background-color: #8f3f97; }
+.aqi-hazardous { background-color: #7e0023; }
+
+/* Map overlay for danger zones */
+.danger-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.danger-zone-good { background: rgba(0, 228, 0, 0.1); }
+.danger-zone-moderate { background: rgba(255, 255, 0, 0.15); }
+.danger-zone-unhealthy-sensitive { background: rgba(255, 126, 0, 0.2); }
+.danger-zone-unhealthy { background: rgba(255, 0, 0, 0.25); }
+.danger-zone-very-unhealthy { background: rgba(143, 63, 151, 0.3); }
+.danger-zone-hazardous { background: rgba(126, 0, 35, 0.4); }
+
+.time-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 4px;
+  background: #e5e7eb;
+  outline: none;
+}
+
+.time-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.time-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

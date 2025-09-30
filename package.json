@@ -1,0 +1,16 @@
+{
+  "name": "aqvision-combined",
+  "version": "1.0.0",
+  "description": "AQVision - Combined Air Quality Monitoring App",
+  "main": "combined-app.js",
+  "scripts": {
+    "start": "node combined-app.js",
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "node combined-app.js",
+    "install-deps": "npm install && cd frontend && npm install"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "होम",
+    "dashboard": "डैशबोर्ड",
+    "realTime": "रियल-टाइम",
+    "forecast": "पूर्वानुमान",
+    "alerts": "अलर्ट",
+    "historical": "ऐतिहासिक",
+    "education": "शिक्षा",
+    "settings": "सेटिंग्स",
+    "admin": "एडमिन",
+    "login": "लॉगिन",
+    "signup": "साइन अप",
+    "logout": "लॉगआउट"
+  },
+  "auth": {
+    "loginTitle": "वापस स्वागत है",
+    "signupTitle": "खाता बनाएं",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "name": "पूरा नाम",
+    "mobile": "मोबाइल नंबर",
+    "ageGroup": "आयु समूह",
+    "healthConditions": "स्वास्थ्य स्थितियां",
+    "language": "पसंदीदा भाषा",
+    "loginButton": "साइन इन",
+    "signupButton": "खाता बनाएं",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "noAccount": "कोई खाता नहीं है?",
+    "hasAccount": "पहले से खाता है?",
+    "signupExplanation": "हम आपकी सुरक्षा के लिए व्यक्तिगत वायु गुणवत्ता अलर्ट और सिफारिशें प्रदान करने के लिए आयु और स्वास्थ्य जानकारी एकत्र करते हैं।"
+  },
+  "dashboard": {
+    "greeting": "{{timeOfDay}} {{name}}",
+    "lastUpdated": "अंतिम अपडेट: {{time}}",
+    "currentAQI": "वर्तमान AQI",
+    "quickActions": "त्वरित कार्य",
+    "viewMap": "मैप देखें",
+    "checkForecast": "पूर्वानुमान जांचें",
+    "manageAlerts": "अलर्ट प्रबंधित करें",
+    "viewHistory": "इतिहास देखें"
+  },
+  "cities": {
+    "delhi": "दिल्ली एनसीआर",
+    "mumbai": "मुंबई",
+    "kolkata": "कोलकाता",
+    "chennai": "चेन्नई",
+    "bengaluru": "बेंगलुरु",
+    "ahmedabad": "अहमदाबाद"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "retry": "पुनः प्रयास",
+    "save": "सेव करें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें",
+    "back": "वापस",
+    "next": "अगला",
+    "previous": "पिछला"
+  }
+}
