@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "combined-app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/combined-app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/combined-app.js"
+    }
+  ],
+  "outputDirectory": "frontend/dist"
+}

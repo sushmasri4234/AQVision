@@ -5,7 +5,7 @@
   "main": "combined-app.js",
   "scripts": {
     "start": "node combined-app.js",
-    "build": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm install && npm run build && cd .. && mkdir public 2>nul || echo Directory exists && xcopy /E /Y frontend\\dist\\* public\\",
     "dev": "node combined-app.js",
     "install-deps": "npm install && cd frontend && npm install"
   },
