@@ -15,6 +15,5 @@
       "src": "/(.*)",
       "dest": "/combined-app.js"
     }
-  ],
-  "outputDirectory": "frontend/dist"
+  ]
 }
