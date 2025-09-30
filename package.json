@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node combined-app.js",
     "build": "cd frontend && npm install && npm run build && cd .. && cp -r frontend/dist/* public/ || (mkdir public && xcopy /E /Y frontend\\dist\\* public\\)",
+    "vercel-build": "cd frontend && npm install && npm run build",
     "dev": "node combined-app.js",
     "install-deps": "npm install && cd frontend && npm install"
   },
