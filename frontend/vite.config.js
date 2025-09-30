@@ -12,16 +12,6 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          charts: ['chart.js', 'react-chartjs-2'],
-          maps: ['leaflet', 'react-leaflet', 'leaflet.markercluster']
-        }
-      }
-    }
+    sourcemap: true
   }
 })
